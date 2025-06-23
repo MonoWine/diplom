@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Интерактивный склад</title>
+    <style>
+        /* Контейнер для склада */
+        .warehouse {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr) 1fr; /* 1-4 колонки по 1, 5-я колонка */
+            grid-template-rows: repeat(8, 1fr); /* 8 рядов */
+            gap: 10px;
+            width: 900px;
+            margin: 0 auto;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            padding: 10px;
+        }
+
+        /* Ячейки склада */
+        .cell {
+            width: 80px;
+            height: 80px;
+            border: 1px solid #ccc;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            position: relative;
+            background-color: #f9f9f9;
+        }
+
+        /* Ховер-эффект для ячеек */
+        .cell:hover {
+            background-color: #f0f0f0;
+        }
+
+        /* Блок с названием товара */
+        .product-name {
+            display: none;
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #fff;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        /* Заголовки для колонок */
+        .header {
+            text-align: center;
+            font-weight: bold;
+            background-color: #ddd;
+            padding: 5px;
+        }
+
+        /* Стили для 5-й колонки */
+        .column-5 {
+            grid-row: span 8; /* Ячейка в 5-й колонке растягивается на все ряды */
+        }
+
+        /* Для выравнивания 6-й колонки */
+        .column-6 {
+            grid-column: 6 / 7; /* 6-я колонка */
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+    </style>
+</head>
+<body>
+
+<div class="warehouse">
+    <!-- Заголовки для колонок -->
+    <div class="header">Колонка 1</div>
+    <div class="header">Колонка 2</div>
+    <div class="header">Колонка 3</div>
+    <div class="header">Колонка 4</div>
+    <div class="header">Колонка 5</div>
+    <div class="header">Колонка 6</div>
+
+    <!-- Ячейки для колонок 1-4 с 6 рядами -->
+    <div class="cell" data-product="Ковши экскаваторные">1-1</div>
+    <div class="cell" data-product="Ковши для фронтальных погрузчиков">1-2</div>
+    <div class="cell" data-product="Ковши для экскаваторов-погрузчиков">1-3</div>
+    <div class="cell" data-product="Карьерные ковши">1-4</div>
+    <div class="cell" data-product="Ковши Прямая лопата">1-5</div>
+    <div class="cell" data-product="Ковши Обратная лопата">1-6</div>
+
+    <div class="cell" data-product="Гидромолоты Profbreaker">2-1</div>
+    <div class="cell" data-product="Гидробуры и шнеки">2-2</div>
+    <div class="cell" data-product="Вибротрамбовки">2-3</div>
+    <div class="cell" data-product="Вибропогружатели">2-4</div>
+    <div class="cell" data-product="Виброрипперы">2-5</div>
+    <div class="cell" data-product="Мульчеры">2-6</div>
+
+    <div class="cell" data-product="Грейферы металлоломные">3-1</div>
+    <div class="cell" data-product="Грейферы копающие">3-2</div>
+    <div class="cell" data-product="Грейферы погрузочные">3-3</div>
+    <div class="cell" data-product="Грейферы лесные">3-4</div>
+    <div class="cell" data-product="Захваты металлоломные">3-5</div>
+    <div class="cell" data-product="Захваты копающие">3-6</div>
+
+    <div class="cell" data-product="Рыхлители">4-1</div>
+    <div class="cell" data-product="Мегарыхлители">4-2</div>
+    <div class="cell" data-product="Бульдозерные стойки">4-3</div>
+    <div class="cell" data-product="Бульдозерные отвалы">4-4</div>
+    <div class="cell" data-product="Стрелы экскаваторов">4-5</div>
+    <div class="cell" data-product="Рукояти экскаваторов">4-6</div>
+
+    <!-- Колонка 5 с 1 ячейкой (растягивается на 8 рядов) -->
+    <div class="cell column-5" data-product="Пусто">5-1</div>
+
+    <div class="cell column-6" data-product="Ковши для экскаваторов Кранэкс">5-6</div>
+    <div class="cell column-6" data-product="Ковши для экскаваторов ТВЭКС">6-6</div>
+</div>
+
+<div id="product-info" class="product-name"></div>
+
+<script>
+    // Обработчик клика по ячейке
+    document.querySelectorAll('.cell').forEach(cell => {
+        cell.addEventListener('click', function() {
+            const productName = this.getAttribute('data-product');
+            const productInfo = document.getElementById('product-info');
+            productInfo.textContent = "Название товара: " + productName;
+            productInfo.style.display = "block";
+        });
+    });
+</script>
+
+</body>
+</html>
